@@ -3,14 +3,14 @@ import { NextResponse } from "next/server";
 
 const uri =
   process.env.MONGODB_URI ||
-  "mongodb+srv://1234:1234@cluster0.wir5xrk.mongodb.net/video_participants";
+  "mongodb+srv://1234:1234@cluster0.wir5xrk.mongodb.net/final-scrap-with-profile";
 
 export async function GET() {
   let client;
   try {
     client = await MongoClient.connect(uri);
-    const filmmakers_db = client.db("filmmakers");
-    const participants_collection = filmmakers_db.collection("participants");
+    const filmmakers_db = client.db("final-scrap-with-profile");
+    const participants_collection = filmmakers_db.collection("stir-filmmakers");
 
     const participants = await participants_collection.find({}).toArray();
 

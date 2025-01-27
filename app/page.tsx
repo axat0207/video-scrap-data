@@ -11,6 +11,15 @@ interface Filmmaker {
   Website: string;
   Frame: string;
 }
+interface ApiResponse {
+  name: string;
+  title: string;
+  Organization: string;
+  Location: string;
+  Participation: string;
+  Website: string;
+  frame: string;
+}
 
 const FilmmakerDirectory = () => {
   const [filmmakers, setFilmmakers] = useState<Filmmaker[]>([]);
@@ -21,7 +30,17 @@ const FilmmakerDirectory = () => {
       try {
         const response = await fetch("/api/data");
         const data = await response.json();
-        setFilmmakers(data);
+        // Map the API response to the Filmmaker interface
+        const mappedData = data.map((item: ApiResponse) => ({
+          Name: item.name,
+          Title: item.title,
+          Organization: item.Organization,
+          Location: item.Location,
+          "Participation Type": item.Participation,
+          Website: item.Website,
+          Frame: item.frame,
+        }));
+        setFilmmakers(mappedData);
         setIsLoading(false);
       } catch (error) {
         console.error("Failed to fetch filmmakers:", error);
